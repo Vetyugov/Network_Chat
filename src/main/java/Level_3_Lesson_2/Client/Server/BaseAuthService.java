@@ -1,7 +1,6 @@
 package Level_3_Lesson_2.Client.Server;
 
 //Реализация инферфейса авторизации
-//В коммит
 
 import java.sql.SQLException;
 import java.util.ArrayList;

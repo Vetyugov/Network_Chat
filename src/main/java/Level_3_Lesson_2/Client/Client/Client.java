@@ -1,5 +1,4 @@
 package Level_3_Lesson_2.Client.Client;
-//В коммит
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
