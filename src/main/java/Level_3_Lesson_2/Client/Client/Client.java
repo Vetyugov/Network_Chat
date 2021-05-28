@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.Socket;
 
 /*
+Новый коммит
 Формат сообщения для авторизации клиента    ->     /auth login1 pass1
 Формат для отправли личного сообщения       ->     /w nick1 сообщение
 Выйти из чата                               ->     /end
