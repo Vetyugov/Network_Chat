@@ -1,6 +1,7 @@
 package Level_3_Lesson_2.Client.Server;
 
 //Класс для работы с БД
+//В коммит
 
 import java.sql.*;
 

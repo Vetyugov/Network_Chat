@@ -1,6 +1,7 @@
 package Level_3_Lesson_2.Client.Server;
 
-//Серверное приложение.
+//Серверное приложение
+//В коммит
 
 import java.io.IOException;
 import java.net.ServerSocket;

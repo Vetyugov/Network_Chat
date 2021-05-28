@@ -1,5 +1,6 @@
 package Level_3_Lesson_2.Client.Server;
-//Класс клиента.
+//Класс клиента
+//В коммит
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
