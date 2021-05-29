@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.Socket;
 
@@ -24,6 +25,8 @@ public class Client {
     private Socket socket;
     private DataInputStream in;
     private DataOutputStream out;
+    private String clientLogin;
+    private FileWriter writer;
 
     public Client() {
         try {
@@ -52,6 +55,7 @@ public class Client {
                         break;
                     }
                     ta.append("\n"+strFromServer);
+                    writer.append("\n"+strFromServer);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -67,6 +71,7 @@ public class Client {
             in.close();
             out.close();
             socket.close();
+            writer.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -90,9 +95,11 @@ public class Client {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    out.writeUTF("/auth "+login.getText()+" "+ password.getText());
+                    clientLogin = login.getText();
+                    out.writeUTF("/auth "+clientLogin+" "+ password.getText());
                     login.setText("");
                     password.setText("");
+                    writer = new FileWriter("history_"+clientLogin+".txt", true);
                 } catch (IOException exception) {
                     exception.printStackTrace();
                 }

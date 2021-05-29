@@ -4,6 +4,7 @@ package Level_3_Lesson_2.Client.Server;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.Socket;
 import java.sql.SQLException;
@@ -20,6 +21,7 @@ public class ClientHandler {
 
     private long startTime;
     private String newName;
+    private String login;
 
     public String getName() {
         return name;
@@ -33,6 +35,7 @@ public class ClientHandler {
             this.out = new DataOutputStream(socket.getOutputStream());
             this.name = "";
             this.startTime = System.currentTimeMillis();
+
             new Thread(()->{
                 while (true){
                     try {
