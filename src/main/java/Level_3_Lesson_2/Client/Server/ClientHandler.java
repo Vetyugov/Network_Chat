@@ -2,10 +2,7 @@ package Level_3_Lesson_2.Client.Server;
 
 //Класс клиента
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 import java.sql.SQLException;
 
@@ -22,6 +19,8 @@ public class ClientHandler {
     private long startTime;
     private String newName;
     private String login;
+
+    private FileReader reader;
 
     public String getName() {
         return name;
@@ -55,12 +54,17 @@ public class ClientHandler {
                 try {
                     if (!this.socket.isClosed()){
                         authentication();
+                        getLastHundredMsg();
                         readMessages();
                     }
                 } catch (IOException | SQLException e) {
                     e.printStackTrace();
                 } finally {
-                    closeConnection();
+                    try {
+                        closeConnection();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }).start();
         } catch (IOException e) {
@@ -131,7 +135,7 @@ public class ClientHandler {
         }
     }
 
-    public void closeConnection() {
+    public void closeConnection() throws IOException {
         myServer.unsubscribe(this);
         if(this.name != ""){
             myServer.broadcastMsg(name + " вышел из чата");
@@ -152,5 +156,52 @@ public class ClientHandler {
             e.printStackTrace();
         }
     }
+
+    private void getLastHundredMsg() throws IOException {
+        try (BufferedReader reader = new BufferedReader(new FileReader("allHistory_.txt"))) {
+            String str;
+            long countLines = 0L;
+            while ((str = reader.readLine()) != null) {
+                countLines++;
+            }
+
+            System.out.println(countLines);
+            reader.close();
+            BufferedReader readerTwice = new BufferedReader(new FileReader("allHistory_.txt"));
+            long countReadLines = countLines - 20L;
+            if (countReadLines < 0){
+                countReadLines = 0;
+            }
+            long i=0;
+            while ((str = readerTwice.readLine()) != null) {
+                i++;
+                if((i>=countReadLines)&&(i<countLines)){
+                    if (!(str.startsWith("/w"))){
+                        sendMsg(str);
+                    }
+                    if (str.startsWith("/w "+name)){
+                        String[] parts = str.split("\\s");
+                        System.out.println(parts.length);
+                        for (int j = 2; j < parts.length; j++) {
+                            System.out.println(parts[j]+ " ");
+                        }
+                        str = "";
+                        for (int j =2; j < parts.length; j++) {
+                            if (j == 2) {
+                                str = parts[j];
+                            }else {
+                                str = str +" "+ parts[j];
+                            }
+                        }
+                        sendMsg(str);
+                    }
+                }
+            }
+            readerTwice.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    };
 }
 

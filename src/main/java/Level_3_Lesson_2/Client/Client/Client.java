@@ -15,7 +15,6 @@ import java.net.Socket;
 Формат для отправли личного сообщения       ->     /w nick1 сообщение
 Выйти из чата                               ->     /end
 Сменить ник                                 ->     /change новый_ник
-Сменить nik                                 ->     /change новый_ник
  */
 
 
@@ -56,6 +55,7 @@ public class Client {
                     }
                     ta.append("\n"+strFromServer);
                     writer.append("\n"+strFromServer);
+                    writer.flush();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -71,7 +71,7 @@ public class Client {
             in.close();
             out.close();
             socket.close();
-            writer.flush();
+            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

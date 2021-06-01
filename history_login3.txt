@@ -1,0 +1,115 @@
+
+/authok Maks
+Nikita: Начало
+Mike: Поехали
+Maks: го
+Nikita: лично тебе
+Nikita вышел из чата
+Mike вышел из чата
+/authok Maks
+
+Nikita зашел в чат
+Mike зашел в чат
+Mike вышел из чата
+Mike зашел в чат
+Mike: dfsdfs
+Maks зашел в чат
+Mike: 1
+Mike: 1
+Mike: 2
+Mike: 2
+Nikita: 3
+Nikita: 3
+/wMike Nikita: Привет
+Nikita вышел из чата
+Mike вышел из чата
+Maks вышел из чата
+Nikita зашел в чат
+Mike зашел в чат
+Maks зашел в чат
+/authok Maks
+Nikita: sdfsfd
+Nikita вышел из чата
+Nikita зашел в чат
+Mike зашел в чат
+/wMaks Mike: ку
+Mike: выавы
+Nikita: ываы
+/wNikita Mike: ку
+Nikita: выаыв
+Maks зашел в чат
+Maks вышел из чата
+Mike вышел из чата
+Nikita вышел из чата
+Nikita зашел в чат
+Mike зашел в чат
+/wNikita Mike: проверка
+Mike: 
+Nikita: ыва
+/wNikita Mike: проверка
+Mike: ываыв
+/authok Maks
+Nikita: ываы
+Nikita: выаыв
+Maks зашел в чат
+Maks вышел из чата
+Mike вышел из чата
+Nikita вышел из чата
+Nikita зашел в чат
+Mike зашел в чат
+Mike: 
+Nikita: ыва
+Mike: ываыв
+Maks зашел в чат
+Maks вышел из чата
+Mike вышел из чата
+Nikita вышел из чата
+Nikita зашел в чат
+Mike зашел в чат
+/authok Maks
+Nikita вышел из чата
+Nikita зашел в чат
+Mike зашел в чат
+Mike: 
+Nikita: ыва
+Mike: ываыв
+Maks зашел в чат
+Maks вышел из чата
+Mike вышел из чата
+Nikita вышел из чата
+Nikita зашел в чат
+Mike зашел в чат
+Maks зашел в чат
+Maks вышел из чата
+Nikita вышел из чата
+Mike вышел из чата
+Nikita зашел в чат
+Mike зашел в чат
+Maks: 1
+Mike: 2
+Nikita: 3
+Mike: 2
+Nikita вышел из чата
+Mike вышел из чата
+/authok Maks
+Nikita: 3
+Nikita вышел из чата
+Mike вышел из чата
+Maks вышел из чата
+Nikita зашел в чат
+Nikita вышел из чата
+Nikita зашел в чат
+Nikita вышел из чата
+Nikita зашел в чат
+Nikita вышел из чата
+Nikita зашел в чат
+Nikita вышел из чата
+Nikita зашел в чат
+Mike зашел в чат
+Mike вышел из чата
+Nikita зашел в чат
+Mike зашел в чат
+Nikita: 1
+Mike: 2
+Maks: 3
+Mike: 2

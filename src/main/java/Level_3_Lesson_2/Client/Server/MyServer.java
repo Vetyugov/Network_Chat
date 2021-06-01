@@ -2,6 +2,7 @@ package Level_3_Lesson_2.Client.Server;
 
 //Серверное приложение
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -18,6 +19,8 @@ public class MyServer {
     private AuthService authService;
     private JDBCApp jdbcManager;
 
+    private FileWriter writer;
+
     public AuthService getAuthService() {
         return authService;
     }
@@ -29,6 +32,8 @@ public class MyServer {
             jdbcManager.createDB();
 //            jdbcManager.writeDB();
             jdbcManager.readDB();
+            //Подключаемся к файлу
+            writer = new FileWriter("allHistory_.txt", true);
             authService = new BaseAuthService();
             authService.start();
             clients = new ArrayList<>();
@@ -46,6 +51,7 @@ public class MyServer {
          {
             if (authService != null) {
                 authService.stop();
+
             }
         }
     }
@@ -59,13 +65,17 @@ public class MyServer {
         return false;
     }
 
-    public synchronized void broadcastMsg(String msg) {
+    public synchronized void broadcastMsg(String msg) throws IOException {
+        writer.append("\n"+msg);
+        writer.flush();
         for (ClientHandler o : clients) {
             o.sendMsg(msg);
         }
     }
 
-    public synchronized void privateMsg(String ToName, String msg){
+    public synchronized void privateMsg(String ToName, String msg) throws IOException {
+        writer.append("\n"+"/w " +ToName+" "+msg);
+        writer.flush();
         for (ClientHandler o: clients) {
             if (o.getName().equals(ToName)){
                 o.sendMsg(msg);
