@@ -8,6 +8,9 @@ import java.io.DataOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /*
 Новый коммит
@@ -46,6 +49,7 @@ public class Client {
         out = new DataOutputStream(socket.getOutputStream());
 
         //Поток, который читает, что пришло с сервера и пишет в консоль
+
         Thread thread1 = new Thread(() -> {
             try {
                 while (true) {

@@ -5,6 +5,8 @@ package Level_3_Lesson_2.Client.Server;
 import java.io.*;
 import java.net.Socket;
 import java.sql.SQLException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ClientHandler {
     private MyServer myServer;
@@ -35,25 +37,13 @@ public class ClientHandler {
             this.name = "";
             this.startTime = System.currentTimeMillis();
 
-            new Thread(()->{
-                while (true){
-                    try {
-                        if ((System.currentTimeMillis() - startTime > 30000) && (this.name == "")){
-                            out.writeUTF("/end");
-                            this.socket.close();
-                            break;
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        break;
-                    }
-                }
-            }).start();
-
-            new Thread(() -> {
+            ExecutorService service = Executors.newFixedThreadPool(8);
+            service.execute(() -> {
                 try {
                     if (!this.socket.isClosed()){
+                        this.socket.setSoTimeout(5000);
                         authentication();
+                        this.socket.setSoTimeout(0);
                         getLastHundredMsg();
                         readMessages();
                     }
@@ -66,7 +56,7 @@ public class ClientHandler {
                         e.printStackTrace();
                     }
                 }
-            }).start();
+            });
         } catch (IOException e) {
             throw new RuntimeException("Проблемы при создании обработчика клиента");
         }
@@ -161,11 +151,9 @@ public class ClientHandler {
         try (BufferedReader reader = new BufferedReader(new FileReader("allHistory_.txt"))) {
             String str;
             long countLines = 0L;
-            while ((str = reader.readLine()) != null) {
+            while ((reader.readLine()) != null) {
                 countLines++;
             }
-
-            System.out.println(countLines);
             reader.close();
             BufferedReader readerTwice = new BufferedReader(new FileReader("allHistory_.txt"));
             long countReadLines = countLines - 20L;

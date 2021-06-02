@@ -58,7 +58,6 @@ public class JDBCApp {
         System.out.println("Сейчас в БД:");
         resSet = statmt.executeQuery("SELECT * FROM users");
         while (resSet.next()) {                     // Пока есть строки
-            String name = resSet.getString(2);        // Или rs.getString("Name");
             System.out.println(resSet.getString(1)+"    "+resSet.getString(2)+"    "+resSet.getString(3)+"    "+resSet.getString(4));
         }
     }

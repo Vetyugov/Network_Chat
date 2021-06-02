@@ -6,14 +6,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MyServer {
     private final int PORT = 8189;
-    public static Connection conn;
 
     private List<ClientHandler> clients;
     private AuthService authService;
