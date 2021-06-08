@@ -1,6 +1,9 @@
-package Level_3_Lesson_2.Client.Server;
+package Network_Chat.Server;
 
 //Класс клиента
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.net.Socket;
@@ -23,6 +26,7 @@ public class ClientHandler {
     private String login;
 
     private FileReader reader;
+    private static final Logger LOGGER = LogManager.getLogger(MyServer.class);
 
     public String getName() {
         return name;
@@ -89,7 +93,7 @@ public class ClientHandler {
     public void readMessages() throws IOException, SQLException {
         while (true) {
             String strFromClient = in.readUTF();
-            System.out.println("от " + name + ": " + strFromClient);
+            LOGGER.info("от " + name + ": " + strFromClient);
             if (strFromClient.equals("/end")) {
                 return;
             }
@@ -169,10 +173,6 @@ public class ClientHandler {
                     }
                     if (str.startsWith("/w "+name)){
                         String[] parts = str.split("\\s");
-                        System.out.println(parts.length);
-                        for (int j = 2; j < parts.length; j++) {
-                            System.out.println(parts[j]+ " ");
-                        }
                         str = "";
                         for (int j =2; j < parts.length; j++) {
                             if (j == 2) {

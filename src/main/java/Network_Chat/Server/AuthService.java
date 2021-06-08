@@ -1,4 +1,4 @@
-package Level_3_Lesson_2.Client.Server;
+package Network_Chat.Server;
 //Интерфейс аунтентификации
 
 import java.sql.SQLException;

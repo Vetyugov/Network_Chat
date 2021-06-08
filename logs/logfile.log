@@ -1,0 +1,7 @@
+INFO  2021-06-08 12:57:05 [main] Network_Chat.Server.MyServer (MyServer.java:45) - Сервер ожидает подключения
+INFO  2021-06-08 12:59:48 [main] Network_Chat.Server.BaseAuthService (BaseAuthService.java:16) - Сервис аутентификации запущен
+INFO  2021-06-08 12:59:48 [main] Network_Chat.Server.MyServer (MyServer.java:45) - Сервер ожидает подключения
+INFO  2021-06-08 13:01:07 [main] Network_Chat.Server.MyServer (MyServer.java:47) - Сервер ожидает подключения
+INFO  2021-06-08 13:01:07 [main] Network_Chat.Server.MyServer (MyServer.java:45) - Сервер ожидает подключения
+INFO  2021-06-08 13:01:11 [pool-2-thread-1] Network_Chat.Server.MyServer (MyServer.java:74) - 
+Nikita зашел в чат
