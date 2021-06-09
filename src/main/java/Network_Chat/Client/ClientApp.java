@@ -1,6 +1,6 @@
-package Level_3_Lesson_2.Client.Client;
+package Network_Chat.Client;
 //Пользователь 1
-//В коммит
+
 
 public class ClientApp {
 

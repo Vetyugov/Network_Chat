@@ -1,7 +1,9 @@
-package Level_3_Lesson_2.Client.Server;
+package Network_Chat.Server;
 
 //Класс для работы с БД
-//В коммит
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 
@@ -10,10 +12,12 @@ public class JDBCApp {
     public static Statement statmt;
     public static ResultSet resSet;
 
+    private static final Logger LOGGER = LogManager.getLogger(MyServer.class);
+
     public void connectDB() throws ClassNotFoundException, SQLException {
         Class.forName("org.sqlite.JDBC");
         conn = DriverManager.getConnection("jdbc:sqlite:mydatabase.db");
-        System.out.println("База Подключена!");
+        LOGGER.info("База Подключена!");
     }
 
     // --------Создание таблицы--------
@@ -26,7 +30,7 @@ public class JDBCApp {
                 "'password' text NOT NULL," +
                 "'nick' text NOT NULL);");
 
-        System.out.println("Таблица создана или уже существует.");
+        LOGGER.info("Таблица создана или уже существует.");
     }
 
     // --------Заполнение таблицы--------
@@ -59,7 +63,6 @@ public class JDBCApp {
         System.out.println("Сейчас в БД:");
         resSet = statmt.executeQuery("SELECT * FROM users");
         while (resSet.next()) {                     // Пока есть строки
-            String name = resSet.getString(2);        // Или rs.getString("Name");
             System.out.println(resSet.getString(1)+"    "+resSet.getString(2)+"    "+resSet.getString(3)+"    "+resSet.getString(4));
         }
     }

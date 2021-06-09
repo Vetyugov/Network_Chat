@@ -1,7 +1,6 @@
-package Level_3_Lesson_2.Client.Server;
+package Network_Chat.Server;
 
 //Этот класс создал для проведения экспериментов)))
-//В коммит
 
 import java.sql.*;
 

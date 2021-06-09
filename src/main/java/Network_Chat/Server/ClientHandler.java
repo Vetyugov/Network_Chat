@@ -1,12 +1,15 @@
-package Level_3_Lesson_2.Client.Server;
-//Класс клиента
-//В коммит
+package Network_Chat.Server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+//Класс клиента
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.io.*;
 import java.net.Socket;
 import java.sql.SQLException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ClientHandler {
     private MyServer myServer;
@@ -20,6 +23,10 @@ public class ClientHandler {
 
     private long startTime;
     private String newName;
+    private String login;
+
+    private FileReader reader;
+    private static final Logger LOGGER = LogManager.getLogger(MyServer.class);
 
     public String getName() {
         return name;
@@ -33,33 +40,27 @@ public class ClientHandler {
             this.out = new DataOutputStream(socket.getOutputStream());
             this.name = "";
             this.startTime = System.currentTimeMillis();
-            new Thread(()->{
-                while (true){
-                    try {
-                        if ((System.currentTimeMillis() - startTime > 30000) && (this.name == "")){
-                            out.writeUTF("/end");
-                            this.socket.close();
-                            break;
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        break;
-                    }
-                }
-            }).start();
 
-            new Thread(() -> {
+            ExecutorService service = Executors.newFixedThreadPool(8);
+            service.execute(() -> {
                 try {
                     if (!this.socket.isClosed()){
+                        this.socket.setSoTimeout(5000);
                         authentication();
+                        this.socket.setSoTimeout(0);
+                        getLastHundredMsg();
                         readMessages();
                     }
                 } catch (IOException | SQLException e) {
                     e.printStackTrace();
                 } finally {
-                    closeConnection();
+                    try {
+                        closeConnection();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }).start();
+            });
         } catch (IOException e) {
             throw new RuntimeException("Проблемы при создании обработчика клиента");
         }
@@ -92,7 +93,7 @@ public class ClientHandler {
     public void readMessages() throws IOException, SQLException {
         while (true) {
             String strFromClient = in.readUTF();
-            System.out.println("от " + name + ": " + strFromClient);
+            LOGGER.info("от " + name + ": " + strFromClient);
             if (strFromClient.equals("/end")) {
                 return;
             }
@@ -128,7 +129,7 @@ public class ClientHandler {
         }
     }
 
-    public void closeConnection() {
+    public void closeConnection() throws IOException {
         myServer.unsubscribe(this);
         if(this.name != ""){
             myServer.broadcastMsg(name + " вышел из чата");
@@ -149,5 +150,46 @@ public class ClientHandler {
             e.printStackTrace();
         }
     }
+
+    private void getLastHundredMsg() throws IOException {
+        try (BufferedReader reader = new BufferedReader(new FileReader("allHistory_.txt"))) {
+            String str;
+            long countLines = 0L;
+            while ((reader.readLine()) != null) {
+                countLines++;
+            }
+            reader.close();
+            BufferedReader readerTwice = new BufferedReader(new FileReader("allHistory_.txt"));
+            long countReadLines = countLines - 20L;
+            if (countReadLines < 0){
+                countReadLines = 0;
+            }
+            long i=0;
+            while ((str = readerTwice.readLine()) != null) {
+                i++;
+                if((i>=countReadLines)&&(i<countLines)){
+                    if (!(str.startsWith("/w"))){
+                        sendMsg(str);
+                    }
+                    if (str.startsWith("/w "+name)){
+                        String[] parts = str.split("\\s");
+                        str = "";
+                        for (int j =2; j < parts.length; j++) {
+                            if (j == 2) {
+                                str = parts[j];
+                            }else {
+                                str = str +" "+ parts[j];
+                            }
+                        }
+                        sendMsg(str);
+                    }
+                }
+            }
+            readerTwice.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    };
 }
 

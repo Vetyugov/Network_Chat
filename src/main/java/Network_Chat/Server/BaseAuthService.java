@@ -1,22 +1,24 @@
-package Level_3_Lesson_2.Client.Server;
+package Network_Chat.Server;
 
 //Реализация инферфейса авторизации
-//В коммит
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class BaseAuthService implements AuthService {
 
+    private static final Logger LOGGER = LogManager.getLogger(MyServer.class);
+
     @Override
     public void start() {
-        System.out.println("Сервис аутентификации запущен");
+        LOGGER.info("Сервис аутентификации запущен");
     }
 
     @Override
     public void stop() {
-        System.out.println("Сервис аутентификации остановлен");
+        LOGGER.info("Сервис аутентификации остановлен");
     }
 
     @Override
